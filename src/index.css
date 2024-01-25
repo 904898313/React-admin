@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* bug:tailwindcss与ant design样式冲突,两处更改:https://www.cnblogs.com/sxliu414/p/17816969.html */
+/* @layer base { 
+  button, [type='button'], [type='reset'], [type='submit']
+  { background-color: #3b82f6; 
+  }
+} */
+/* :global(.ant-btn-primary) {
+  background-color: #1677ff !important;
+} */
+
 :root {
+}
+html,body {
+  height: 100%;
 }
 body {
   margin: 0;
