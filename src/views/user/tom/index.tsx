@@ -1,11 +1,9 @@
-
-
 /*
  * @Author: yangchenguang
  * @Description: tom
  * @Date: 2024-01-09 10:42:22
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-02-02 11:22:53
+ * @LastEditTime: 2024-02-06 15:11:46
  */
 import { useSelector, useDispatch } from "react-redux"
 import { add, del } from '@/sotre/slice/user'
@@ -15,6 +13,7 @@ export default function Tom() {
 	const userValue = useSelector((state: any) => state.user.value)
 	const dispatch = useDispatch()
 	const [value, setValue] = useState<string>("")
+
 	return (
 		<>
 			<h1>test redux</h1>

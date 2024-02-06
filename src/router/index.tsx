@@ -15,6 +15,7 @@ import Form from '../views/form/index'
 import Table from '../views/table/index'
 import Error404 from '../views/error/404'
 import Tom from '../views/user/tom/index'
+import Api from '../views/user/api/index'
 // 嵌套餐单
 import Menu1 from '../views/menu/menu1'
 import Menu21 from '../views/menu/menu2/menu2-1'
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
 						{
 							path: '/user/tom',
 							element: <Tom></Tom>
+						},
+						{
+							path: '/user/api',
+							element: <Api></Api>
 						}
 					]
 				},

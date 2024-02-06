@@ -5,7 +5,7 @@
  * @Description: 侧边栏
  * @Date: 2024-01-05 09:16:48
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-01-23 09:49:37
+ * @LastEditTime: 2024-02-06 15:13:52
  */
 
 import { useState, useEffect } from 'react'
@@ -47,6 +47,7 @@ export default function Sidebar() {
 		getItem('table', '/table', <PieChartOutlined />),
 		getItem('User', '/user', <UserOutlined />, [
 			getItem('Tom', '/user/tom', <UserOutlined />),
+			getItem('api', '/user/api', <UserOutlined />),
 		]),
 		getItem('菜单嵌套', '/menu', <UserOutlined />, [
 			getItem('菜单1', '/menu/menu1', <UserOutlined />),
