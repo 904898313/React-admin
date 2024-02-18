@@ -5,10 +5,11 @@
  * @Description: 
  * @Date: 2024-02-02 11:32:04
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-02-02 15:34:31
+ * @LastEditTime: 2024-02-18 17:03:55
  */
 
 import axios, { AxiosRequestConfig, AxiosResponse }  from 'axios'
+import { message } from 'antd';
 
 const Serve = axios.create({
   baseURL: 'https://some-domain.com/api/',
@@ -27,8 +28,11 @@ Serve.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 Serve.interceptors.response.use(function (response) {
+    if (!response.data.success) {
+      message.error(response.data.errorMessage)
+    }
     // 对响应数据做点什么
-    return response;
+    return response.data;
   }, function (error) {
     // 对响应错误做点什么
     return Promise.reject(error);

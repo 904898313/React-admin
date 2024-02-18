@@ -3,7 +3,7 @@
  * @Description: api
  * @Date: 2024-01-09 10:42:22
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-02-06 16:42:51
+ * @LastEditTime: 2024-02-18 17:06:22
  */
 // api
 import { useRequest } from "ahooks"
@@ -13,15 +13,8 @@ export default function Tom() {
 	const [value, setValue] = useState<string>("")
   const { data, error, loading, runAsync: getData } = useRequest(() => getUserInfo({number:value}));
   const initData = async () => {
-    const res = await getData()
-    if (res) {
-      console.log(res,"res");
-    }
+    getData()
   }
-  // 接口
-  useEffect(() => {
-    initData();
-  }, [])
 
 	return (
 		<>
@@ -32,8 +25,8 @@ export default function Tom() {
       <>{loading ? <>加载中...</> : (
         <ul>
           {
-            data?.data?.facts.map((i) => {
-              return <li>{ i }</li>
+            data?.facts.map((i) => {
+              return <li key={i}>{ i }</li>
             })
           }
         </ul>

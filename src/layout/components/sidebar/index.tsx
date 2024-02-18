@@ -5,62 +5,24 @@
  * @Description: 侧边栏
  * @Date: 2024-01-05 09:16:48
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-02-06 15:13:52
+ * @LastEditTime: 2024-02-18 14:51:10
  */
 
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import type { MenuProps } from 'antd';
-import {
-  PieChartOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
 const { Sider } = Layout;
 // hooks
 import { useSessionStorageState } from 'ahooks'
 // 资源
 import { getOpenKeys } from '@/utils/index'
+import { routes } from '@/router';
 
 export default function Sidebar() {
 	// hooks
   const location = useLocation()
 	const navigate = useNavigate()
 	
-	type MenuItem = Required<MenuProps>['items'][number];
-	function getItem(
-		label: React.ReactNode,
-		key: React.Key,
-		icon?: React.ReactNode,
-		children?: MenuItem[],
-	): MenuItem {
-		return {
-			key,
-			icon,
-			children,
-			label,
-		} as MenuItem;
-	}
-	const items: MenuItem[] = [
-		getItem('首页', '/home', <PieChartOutlined />),
-		getItem('form', '/form', <PieChartOutlined />),
-		getItem('table', '/table', <PieChartOutlined />),
-		getItem('User', '/user', <UserOutlined />, [
-			getItem('Tom', '/user/tom', <UserOutlined />),
-			getItem('api', '/user/api', <UserOutlined />),
-		]),
-		getItem('菜单嵌套', '/menu', <UserOutlined />, [
-			getItem('菜单1', '/menu/menu1', <UserOutlined />),
-			getItem('菜单2', '/menu/menu2', <UserOutlined />, [
-				getItem('菜单2-1', '/menu/menu2/menu2-1', <UserOutlined />),
-				getItem('菜单2-2', '/menu/menu2/menu2-2', <UserOutlined />, [
-					getItem('菜单2-2-1', '/menu/menu2/menu2-2/menu2-2-1', <UserOutlined />),
-					getItem('菜单2-2-2', '/menu/menu2/menu2-2/menu2-2-2', <UserOutlined />),
-				]),
-			]),
-		]),
-	];
-  
 	const [collapsed, setCollapsed] = useState(false); // menu 左右展开收起
 	// menu默认选中key数组
 	const [defaultSelectedKeys, setdefaultSelectedKeys] = useSessionStorageState<string[]>('defaultSelectedKeys', {
@@ -107,7 +69,7 @@ export default function Sidebar() {
 			<Menu
 				theme="dark"
 				mode="inline"
-				items={items}
+				items={routes}
 				defaultSelectedKeys={defaultSelectedKeys}
 				selectedKeys={selectedKeys}
 				openKeys={openKeys}
