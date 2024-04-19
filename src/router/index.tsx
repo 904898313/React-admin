@@ -5,7 +5,7 @@
  * @Description: 路由
  * @Date: 2024-01-04 16:39:14
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-02-18 15:00:20
+ * @LastEditTime: 2024-04-17 15:18:58
  */
 
 import { createBrowserRouter, Navigate } from "react-router-dom";
@@ -15,8 +15,10 @@ import Form from '../views/form/index'
 import Table from '../views/table/index'
 import Error404 from '../views/error/404'
 import Tom from '../views/user/tom/index'
+import List from '../views/user/list/index'
 import Api from '../views/user/api/index'
 import TestMyApi from '../views/user/testMyApi/index'
+import TestMome from '../views/user/testMome/index'
 // 嵌套餐单
 import Menu1 from '../views/menu/menu1'
 import Menu21 from '../views/menu/menu2/menu2-1'
@@ -56,6 +58,13 @@ export const routes = [
 					icon: <UserOutlined />,
 					children: [
 						{
+							label: '用户列表',
+							path: '/user/list',
+							key: '/user/list',
+							element: <List></List>,
+							icon: <UserOutlined />
+						},
+						{
 							label: 'Tom',
 							path: '/user/tom',
 							key: '/user/tom',
@@ -74,6 +83,13 @@ export const routes = [
 							path: '/user/test-myApi',
 							key: '/user/test-myApi',
 							element: <TestMyApi></TestMyApi>,
+							icon: <UserOutlined />
+						},
+						{
+							label: 'testMome',
+							path: '/user/testMome',
+							key: '/user/testMome',
+							element: <TestMome></TestMome>,
 							icon: <UserOutlined />
 						}
 					]

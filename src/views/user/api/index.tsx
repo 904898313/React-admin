@@ -3,7 +3,7 @@
  * @Description: api
  * @Date: 2024-01-09 10:42:22
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-02-18 17:06:22
+ * @LastEditTime: 2024-03-20 15:49:10
  */
 // api
 import { useRequest } from "ahooks"
@@ -22,6 +22,7 @@ export default function Tom() {
       <button onClick={initData}>手动调接口</button><br />
       <input type="text" value={value} onChange={(e) => setValue(e.target.value)} placeholder="信息条数，默认一条" /><br />
       <h1>狗的随机信息</h1>
+      { JSON.stringify(data) }
       <>{loading ? <>加载中...</> : (
         <ul>
           {

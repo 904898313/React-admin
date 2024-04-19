@@ -3,24 +3,43 @@
  * @Description: table
  * @Date: 2024-01-23 09:25:27
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-01-25 16:56:26
+ * @LastEditTime: 2024-03-01 15:55:16
  */
 
-import { Card, Form, DatePicker, Select, Button, Space, Table, Popconfirm, message } from "antd";
+import { Card, Form, DatePicker, Select, Button, Space, Table, Popconfirm, message, Input  } from "antd";
 import { SearchOutlined, SyncOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 // components
 import EditForm from "./components/Edit";
+// api
+import { getCountry } from '@/api/module/world.tsx'
+import { useRequest } from "ahooks";
 
 export default function TableDemo() {
+	// api
+	const { data, error, loading: loadings, runAsync } = useRequest(() => getCountry({}))
+	// runAsync()
+	console.log(data, "data");
+	
+	useEffect(() => {
+		onFinish({})
+	},[])
+
 	const [form] = Form.useForm();
 	const modalRef = useRef<any>()
 	// 搜索
-	function onFinish(values: any) {
+	async function onFinish(values: any) {
 		console.log(values, "onFinish");
-		setLoading(true)
-		setTimeout(() => {
-			setLoading(false)
-		}, 1500);
+		// setLoading(true)
+		// setTimeout(() => {
+		// 	setLoading(false)
+		// }, 1500);
+		
+		const res = await runAsync()
+		console.log(res,"res111");
+		// if (res.status) {
+		// 	setDataSource(() => res.data)
+		// }
+		setDataSource(() => [{code: 'xxx'}])
 	}
 	// 重置
 	function handleReset() {
@@ -33,49 +52,96 @@ export default function TableDemo() {
 
 	// table
 	const [loading, setLoading] = useState(false)
-	type dataType = {
-		id: number
-		key: string
-		name: string
-		age: number
-		address: string
-	}
-	const dataSource:dataType[] = [
-		{
-			id: 1,
-			key: '1',
-			name: '胡彦斌',
-			age: 32,
-			address: '西湖区湖底公园1号',
-		},
-		{
-			id: 2,
-			key: '2',
-			name: '胡彦祖',
-			age: 42,
-			address: '西湖区湖底公园1号',
-		},
-	];
+	// type dataType = {
+	// 	id: number
+	// 	key: string
+	// 	name: string
+	// 	age: number
+	// 	address: string
+	// 	[key: string]: any
+	// }
+	// const dataSource:dataType[] = [
+	// 	{
+	// 		id: 1,
+	// 		key: '1',
+	// 		name: '胡彦斌',
+	// 		age: 32,
+	// 		address: '西湖区湖底公园1号',
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		key: '2',
+	// 		name: '胡彦祖',
+	// 		age: 42,
+	// 		address: '西湖区湖底公园1号',
+	// 	},
+	// ];
+	const [dataSource, setDataSource] = useState<any>([])
 	const columns = [
 		{
-			title: '姓名',
-			dataIndex: 'name',
-			key: 'name',
+			title: 'Code',
+			dataIndex: 'Code',
+			key: 'Code',
 		},
 		{
-			title: '年龄',
-			dataIndex: 'age',
-			key: 'age',
+			title: '国家名称',
+			dataIndex: 'Name',
+			key: 'Name',
 		},
 		{
-			title: '住址',
-			dataIndex: 'address',
-			key: 'address',
+			title: '大陆',
+			dataIndex: 'Continent',
+			key: 'Continent',
+		},
+		{
+			title: '地区',
+			dataIndex: 'Region',
+			key: 'Region',
+		},
+		{
+			title: '面积',
+			dataIndex: 'SurfaceArea',
+			key: 'SurfaceArea',
+		},
+		{
+			title: '独立日',
+			dataIndex: 'IndepYear',
+			key: 'IndepYear',
+		},
+		{
+			title: '人口',
+			dataIndex: 'Population',
+			key: 'Population',
+		},
+		{
+			title: '国家人均预期寿命',
+			dataIndex: 'LifeExpectancy',
+			key: 'LifeExpectancy',
+		},
+		{
+			title: '国民生产总值',
+			dataIndex: 'GNP',
+			key: 'GNP',
+		},
+		{
+			title: '政府表格',
+			dataIndex: 'GovernmentForm',
+			key: 'GovernmentForm',
+		},
+		{
+			title: '国家领导人',
+			dataIndex: 'HeadOfState',
+			key: 'HeadOfState',
+		},
+		{
+			title: '备注',
+			dataIndex: 'remark',
+			key: 'remark',
 		},
 		{
 			title: 'Action',
 			key: 'action',
-			render: (text:any, record:dataType, index: number) => (
+			render: (text:any, record:any, index: number) => (
 				<Space>
 					<Button type="primary" onClick={() => handleEdit(record.id)}>编辑</Button>
 					<Popconfirm
@@ -128,12 +194,16 @@ export default function TableDemo() {
 							]}
 						></Select>
 					</Form.Item>
+					<Form.Item label="国家" name="country">
+						<Input placeholder="请输入国家名称" />
+					</Form.Item>
 					<Form.Item>
 						<Space>
 							<Button type="primary" icon={<SearchOutlined />} htmlType="submit">搜索</Button>
 							<Button icon={<SyncOutlined />} onClick={handleReset}>重置</Button>
 						</Space>
 					</Form.Item>
+					{ JSON.stringify(dataSource)}1
 				</Form>
 			</Card>
 			<Card size="small">
@@ -142,7 +212,7 @@ export default function TableDemo() {
 					<Button danger icon={<DeleteOutlined />}>删除</Button>
 				</Space>
 			
-				<Table bordered loading={loading} dataSource={dataSource} columns={columns} />
+				<Table rowKey="Code" bordered loading={loading} dataSource={dataSource} columns={columns} />
 			</Card>
 			<EditForm ref={modalRef} />
 		</>
