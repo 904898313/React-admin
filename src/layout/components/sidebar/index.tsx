@@ -5,7 +5,7 @@
  * @Description: 侧边栏
  * @Date: 2024-01-05 09:16:48
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-02-18 14:51:10
+ * @LastEditTime: 2024-10-23 17:28:17
  */
 
 import { useState, useEffect } from 'react'
@@ -59,8 +59,15 @@ export default function Sidebar() {
 		setOpenKeys([latestOpenKey]);
 	}
 	
+	// * 改为tailwindcss
+	const siderStyle: React.CSSProperties = {
+		scrollbarWidth: 'thin',
+		scrollbarGutter: 'stable',
+	};
 	return (
 		<Sider
+			style={siderStyle}
+			className="overflow-auto mb-12"
 			collapsible
 			collapsed={collapsed}
 			onCollapse={(value) => setCollapsed(value)}

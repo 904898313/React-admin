@@ -3,7 +3,7 @@
  * @Description: 布局页面
  * @Date: 2023-12-21 18:41:53
  * @LastEditors: yangchenguang
- * @LastEditTime: 2024-01-24 17:52:40
+ * @LastEditTime: 2024-10-23 17:25:37
  */
 
 import React from 'react';
@@ -22,9 +22,9 @@ const App: React.FC = () => {
   } = theme.useToken();
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout hasSider className="flex h-full">
       <Sidebar />
-      <Layout className='flex flex-col'>
+      <Layout className='flex-1 flex flex-col'>
         <Header />
         <Content className='flex flex-col mx-4 flex-1'>
           <Breadcrumb />
