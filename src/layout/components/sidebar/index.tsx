@@ -61,8 +61,7 @@ export default function Sidebar() {
 	
 	// * 改为tailwindcss
 	const siderStyle: React.CSSProperties = {
-		scrollbarWidth: 'thin',
-		scrollbarGutter: 'stable',
+		scrollbarWidth: 'none',
 	};
 	return (
 		<Sider

@@ -16,10 +16,21 @@
 }
 html,body {
   height: 100%;
+  margin: 0;
 }
 #root {
   height: 100%;
 }
-body {
-  margin: 0;
+/* 重写滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-corner {
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(42, 46, 54, 0.15);
+  border-radius: 4px;
 }

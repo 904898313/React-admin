@@ -26,10 +26,10 @@ const App: React.FC = () => {
       <Sidebar />
       <Layout className='flex-1 flex flex-col'>
         <Header />
-        <Content className='flex flex-col mx-4 flex-1'>
+        <Content className='flex flex-col mx-4 flex-1 overflow-auto'>
           <Breadcrumb />
           <div
-            className='flex-1 p-6 overflow-auto'
+            className='flex-1 p-6'
             style={{
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
