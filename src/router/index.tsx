@@ -12,6 +12,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from '../layout/index'
 import Home from '../views/home/index'
 import Form from '../views/form/index'
+import Form2 from '../views/form2/index'
 import Table from '../views/table/index'
 import Error404 from '../views/error/404'
 import Tom from '../views/user/tom/index'
@@ -43,6 +44,13 @@ export const routes = [
 					path: '/form',
 					key: '/form',
 					element: <Form></Form>,
+					icon: <UserOutlined />
+				},
+				{
+					label: 'form2',
+					path: '/form2',
+					key: '/form2',
+					element: <Form2></Form2>,
 					icon: <UserOutlined />
 				},
 				{

@@ -21,11 +21,11 @@ const FormDemo: React.FC = () => {
 		if (layout) {
 			setFormLayout(layout)
 		}
-  };
+	};
 	// 表单布局类型 样式切换
-  const formItemLayout =
+	const formItemLayout =
     formLayout === 'horizontal' ? { labelCol: { span: 4 }, wrapperCol: { span: 14 } } : null;
-  const buttonItemLayout =
+	const buttonItemLayout =
     formLayout === 'horizontal' ? { wrapperCol: { span: 14, offset: 4 } } : null;
 
 	// 验证通过的提交
@@ -48,9 +48,13 @@ const FormDemo: React.FC = () => {
 	function handleFormFill() {
 		form.setFieldsValue({username:'admin',password:'123456'})
 	}
+	const validateMessages = {
+		required: "'${name}' 是必选字段",
+	}
 	return (
 		<>
 			<Form
+				validateMessages={validateMessages}
 				{...formItemLayout}
 				layout={formLayout}
 				form={form}
@@ -59,6 +63,7 @@ const FormDemo: React.FC = () => {
 				style={{ maxWidth: formLayout === 'inline' ? 'none' : 600 }}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
+				colon={false}
 			>
 				<Form.Item label="布局类型" name="layout">
 					<Radio.Group>
@@ -75,7 +80,7 @@ const FormDemo: React.FC = () => {
 					return prevValues.disabled !== currentValues.disabled
 				}}>
 					{
-						({ getFieldValue }) => <Form.Item label="用户名" name="username" rules={[{ required: true, message: '请输入用户名!' }]}>
+						({ getFieldValue }) => <Form.Item label="用户名" name="username" rules={[{ required: true }]}>
 							<Input placeholder="请输入用户名" disabled={getFieldValue('disabled') === true} />
 						</Form.Item>
 					}
@@ -88,6 +93,37 @@ const FormDemo: React.FC = () => {
 						({ getFieldValue }) => <Form.Item label="密码" name="password" rules={[{ required: true, message: '请输入密码!' }]}>
 							<Input.Password placeholder="请输入密码" disabled={getFieldValue('disabled') === true} />
 						</Form.Item>
+					}
+				</Form.Item>
+				{/* 确认密码 */}
+				<Form.Item noStyle shouldUpdate={(prevValues, currentValues) => {
+					return prevValues.disabled !== currentValues.disabled
+				}}>
+					{
+						({ getFieldValue }) => {
+							return <>
+								<Form.Item
+									dependencies={['password']}
+									label="密码2"
+									name="password2"
+									rules={[
+										{
+											required: true,
+										},
+										({ getFieldValue }) => ({
+											validator(_, value) {
+												if (!value || getFieldValue('password') === value) {
+													return Promise.resolve();
+												}
+											return Promise.reject(new Error('确认密码与密码不相同!'));
+											},
+										}),
+									]}
+								>
+									<Input.Password placeholder="请输入密码2" disabled={getFieldValue('disabled') === true} />
+								</Form.Item>
+							</>
+						}
 					}
 				</Form.Item>
 				{/* 交互字段A */}

@@ -20,18 +20,17 @@ function App() {
     <Provider store={store}>
       <ConfigProvider
         theme={{
-          token: {
+          oken: {
             // Seed Token，影响范围大
             // colorPrimary: '#00b96b',
             // borderRadius: 2,
 
-            // 派生变量，影响范围小
             // colorBgContainer: '#f6ffed',
           },
           components: {
             Button: {
               // colorPrimary: 'red',
-              // algorithm: true, // 启用算法
+              // dasd`lgorithm: true, // 启用算法
             },
             Input: {
               // colorPrimary: 'red',

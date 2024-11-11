@@ -13,7 +13,7 @@ import { useRequest } from 'ahooks'
 import { getUserListApi, deleteUserApi } from '@/api/module/user'
 // 组件
 import Detail from './components/detail'
-import { ReactElement } from 'react';
+import {configureStore} from "@reduxjs/toolkit";
 
 // interface DataType {
 //   key: string;
@@ -99,6 +99,16 @@ const List = () => {
   useEffect(() => {
     onMount()
   },[onMount])
+
+  const f = () => {
+    console.log(7)
+  }
+  f()
+  const [value, setValue] = useState(123)
+  const handleTestClcik = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setValue(v => v+1)
+  }
   return (
     <>
       {contextHolder}
@@ -114,6 +124,7 @@ const List = () => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">Submit</Button>
+          <Button onClick={handleTestClcik}>{value}</Button>
         </Form.Item>
       </Form>
       {/* table */}
