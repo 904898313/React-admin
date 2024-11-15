@@ -1,20 +1,17 @@
-/*
- * @Author: yangchenguang
- * @Description: 表单
- * @Date: 2024-01-04 19:14:14
- * @LastEditors: yangchenguang
- * @LastEditTime: 2024-01-22 19:59:45
- */
 import React from 'react';
 import type { TableProps, FormProps } from 'antd';
-import {Button, Card, Form, Input,Space,Table, Tag } from 'antd';
+import {Button, Card, Form, Input,Space,Table, Tag, message} from 'antd';
 import { SearchOutlined, RedoOutlined } from '@ant-design/icons';
 // components
 import Detail from "./components/Detail.tsx";
+// types
+import { TableItem } from "./types.ts"
 
 const FormDemo: React.FC = () => {
+	// message
+	const [messageApi, messageContent] = message.useMessage();
+	// form
 	const [form] = Form.useForm();
-
 	type FieldType = {
 		name?: string;
 	};
@@ -29,15 +26,7 @@ const FormDemo: React.FC = () => {
 		form.setFieldsValue({name: '填充name'})
 	}
 
-	// table
-	interface DataType {
-		key: string;
-		name: string;
-		age: number;
-		address: string;
-		tags: string[];
-	}
-	const columns: TableProps<DataType>['columns'] = [
+	const columns: TableProps<TableItem>['columns'] = [
 		{
 			title: 'Name',
 			dataIndex: 'name',
@@ -79,29 +68,26 @@ const FormDemo: React.FC = () => {
 			key: 'action',
 			render: (_, record) => (
 				<Space size="middle">
-					<a>Invite {record.name}</a>
+					<a onClick={() => handleDataEdit(record)}>Edit {record.name}</a>
 					<a>Delete</a>
 				</Space>
 			),
 		},
 	];
-	const tableData: DataType[] = [
+	const tableData: TableItem[] = [
 		{
-			key: '1',
 			name: 'John Brown',
 			age: 32,
 			address: 'New York No. 1 Lake Park',
 			tags: ['nice', 'developer'],
 		},
 		{
-			key: '2',
 			name: 'Jim Green',
 			age: 42,
 			address: 'London No. 1 Lake Park',
 			tags: ['loser'],
 		},
 		{
-			key: '3',
 			name: 'Joe Black',
 			age: 32,
 			address: 'Sydney No. 1 Lake Park',
@@ -109,14 +95,22 @@ const FormDemo: React.FC = () => {
 		},
 	]
 	const [data, setData] = useState(tableData)
-
 	// 详情弹窗
-	const detailRef = useRef<HTMLInputElement | null>(null)
 	const [show, setShow] = useState(false);
+	// 详情数据
+	const [editParams,setEditParams] = useState<TableItem>()
 	const handleDataAdd = () => {
 		setShow(true);
+		setEditParams(undefined)
 	}
-	const handleOk = () => {
+	const handleDataEdit = (params:TableItem) => {
+		setShow(true);
+		setEditParams(params)
+	}
+	const handleOk = (values:TableItem) => {
+		console.log(values, "values");
+		messageApi.success("添加成功")
+		setData(i => [...i,{...values}])
 		setShow(false);
 	}
 	const handleCancel = () => {
@@ -124,6 +118,7 @@ const FormDemo: React.FC = () => {
 	}
 	return (
 		<>
+			{messageContent}
 			<Card size="small">
 				<Form form={form} layout="inline" colon={true} onFinish={handleFormFinish} onReset={handleFormReset}>
 					<Form.Item label="名称" name="name">
@@ -140,9 +135,9 @@ const FormDemo: React.FC = () => {
 			</Card>
 			<Card size="small" className={"mt-4"}>
 				<Button className={"my-2"} onClick={handleDataAdd}>添加</Button>
-				<Table<DataType> columns={columns} dataSource={data} />
+				<Table<TableItem> rowKey={"name"} columns={columns} dataSource={data} />
 			</Card>
-			<Detail ref={detailRef} isModalOpen={show} handleOk={handleOk} handleCancel={handleCancel}></Detail>
+			<Detail isModalOpen={show} editParams={editParams} handleOk={handleOk} handleCancel={handleCancel}></Detail>
 		</>
 	)
 };
