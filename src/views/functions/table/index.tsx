@@ -1,45 +1,22 @@
-/*
- * @Author: yangchenguang
- * @Description: table
- * @Date: 2024-01-23 09:25:27
- * @LastEditors: yangchenguang
- * @LastEditTime: 2024-03-01 15:55:16
- */
-
 import { Card, Form, DatePicker, Select, Button, Space, Table, Popconfirm, message, Input  } from "antd";
 import { SearchOutlined, SyncOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 // components
 import EditForm from "./components/Edit";
 // api
 import { getCountry } from '@/api/module/world.tsx'
-import { useRequest } from "ahooks";
 
 export default function TableDemo() {
-	// api
-	const { data, error, loading: loadings, runAsync } = useRequest(() => getCountry({}))
-	// runAsync()
-	console.log(data, "data");
-	
 	useEffect(() => {
 		onFinish({})
 	},[])
 
+	// form
 	const [form] = Form.useForm();
 	const modalRef = useRef<any>()
 	// 搜索
 	async function onFinish(values: any) {
-		console.log(values, "onFinish");
-		// setLoading(true)
-		// setTimeout(() => {
-		// 	setLoading(false)
-		// }, 1500);
-		
-		const res = await runAsync()
-		console.log(res,"res111");
-		// if (res.status) {
-		// 	setDataSource(() => res.data)
-		// }
-		setDataSource(() => [{code: 'xxx'}])
+		// const res = await runAsync()
+		// console.log(res,"res111");
 	}
 	// 重置
 	function handleReset() {
@@ -52,31 +29,14 @@ export default function TableDemo() {
 
 	// table
 	const [loading, setLoading] = useState(false)
-	// type dataType = {
-	// 	id: number
-	// 	key: string
-	// 	name: string
-	// 	age: number
-	// 	address: string
-	// 	[key: string]: any
-	// }
-	// const dataSource:dataType[] = [
-	// 	{
-	// 		id: 1,
-	// 		key: '1',
-	// 		name: '胡彦斌',
-	// 		age: 32,
-	// 		address: '西湖区湖底公园1号',
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		key: '2',
-	// 		name: '胡彦祖',
-	// 		age: 42,
-	// 		address: '西湖区湖底公园1号',
-	// 	},
-	// ];
-	const [dataSource, setDataSource] = useState<any>([])
+	type dataType = {
+		id: number
+		key: string
+		name: string
+		age: number
+		address: string
+	}
+	const [dataSource, setDataSource] = useState<dataType[]>()
 	const columns = [
 		{
 			title: 'Code',
@@ -141,7 +101,7 @@ export default function TableDemo() {
 		{
 			title: 'Action',
 			key: 'action',
-			render: (text:any, record:any, index: number) => (
+			render: (_: null, record: dataType, index: number) => (
 				<Space>
 					<Button type="primary" onClick={() => handleEdit(record.id)}>编辑</Button>
 					<Popconfirm

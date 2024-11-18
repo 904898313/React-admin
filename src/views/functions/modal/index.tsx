@@ -1,7 +1,8 @@
-import {Table, Space, Button} from "antd";
+import {Table, Space, Button, Popconfirm } from "antd";
 import {useRef,useState} from "react";
 import Modal from "./components/Modal.tsx"
 import {tableItem} from "./types.ts";
+import {PlusOutlined} from "@ant-design/icons";
 
 const Index = () => {
     const ref = useRef();
@@ -38,16 +39,26 @@ const Index = () => {
         {
             title: 'Action',
             key: 'action',
-            render: (record: tableItem) => (
+            render: (_: void , record: tableItem,index: number) => (
                 <Space size="middle">
                     <a onClick={() => handleModalShow(record)}>Edit</a>
+                    <Popconfirm
+                        title="Delete the task"
+                        description="Are you sure to delete this task?"
+                        onConfirm={() => handleTableDelete(index)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button danger type="link">Delete</Button>
+                    </Popconfirm>
                     {/*<a>Delete</a>*/}
                 </Space>
             ),
         },
     ]
+    // 显示弹窗
     const handleModalShow = async (record?:tableItem) => {
-        const userInfo = await ref.current!.show(record)
+        const userInfo = await ref.current.show(record)
         if(userInfo) {
             if(userInfo.id) {
                 // 编辑
@@ -67,10 +78,20 @@ const Index = () => {
             }
         }
     }
+    // 删除
+    const handleTableDelete = (index:number) => {
+        setTableData(users => {
+            const cloneUsers = [...users]
+            cloneUsers.splice(index, 1)
+            return cloneUsers
+        })
+    }
     return (
         <>
-            <Button onClick={() => handleModalShow()}>add</Button>
-            <Table dataSource={tableData} columns={tableColumns} rowKey={"name"}></Table>
+            <Space className="mb-4">
+                <Button type="primary" icon={<PlusOutlined />} onClick={() => handleModalShow()}>add</Button>
+            </Space>
+            <Table dataSource={tableData} columns={tableColumns} rowKey={"name"} bordered={true}></Table>
             <Modal ref={ref}></Modal>
         </>
     );
