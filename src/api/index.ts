@@ -12,7 +12,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { message } from 'antd';
 
 const Serve = axios.create({
-  baseURL: 'https://some-domain.com/api/',
+  // baseURL: 'https://some-domain.com/api/',
+  baseURL: 'http://192.168.100.96:9015/',
   timeout: 10000,
   // headers: {'X-Custom-Header': 'foobar'}
 });
@@ -20,6 +21,8 @@ const Serve = axios.create({
 // 添加请求拦截器
 Serve.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
+  config.headers["CustomParameter"] = "pM8]aW8-gA6{mB2>rH2,wJ5)fA4*uW7?cH6@";
+  config.headers["Content-Type"] = "application/x-www-form-urlencoded";
   return config;
 }, function (error) {
   // 对请求错误做些什么

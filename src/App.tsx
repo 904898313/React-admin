@@ -7,36 +7,41 @@
  */
 
 // 路由
-import { RouterProvider } from "react-router-dom"; // 路由提供者
-import { router } from './router/index'
+import { BrowserRouter } from "react-router-dom"; // 路由提供者
+import Router from './router/index'
+import Auth from "@/router/auth.tsx"
 // ant 全局样式
 import { ConfigProvider } from 'antd';
 
 function App() {
   return (
-  <ConfigProvider
-    theme={{
-      token: {
-        // Seed Token，影响范围大
-        // colorPrimary: '#00b96b',
-        // borderRadius: 2,
+      <ConfigProvider
+        theme={{
+          token: {
+            // Seed Token，影响范围大
+            // colorPrimary: '#00b96b',
+            // borderRadius: 2,
 
-        // colorBgContainer: '#f6ffed',
-      },
-      components: {
-        Button: {
-          // colorPrimary: 'red',
-          // dasd`lgorithm: true, // 启用算法
-        },
-        Input: {
-          // colorPrimary: 'red',
-          // algorithm: true, // 启用算法
-        }
-      }
-    }}
-  >
-    <RouterProvider router={router}></RouterProvider>
-  </ConfigProvider>
+            // colorBgContainer: '#f6ffed',
+          },
+          components: {
+            Button: {
+              // colorPrimary: 'red',
+              // dasdlgorithm: true, // 启用算法
+            },
+            Input: {
+              // colorPrimary: 'red',
+              // algorithm: true, // 启用算法
+            }
+          }
+        }}
+      >
+        <BrowserRouter>
+            <Auth>
+                <Router />
+            </Auth>
+        </BrowserRouter>
+      </ConfigProvider>
   )
 }
 

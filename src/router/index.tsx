@@ -8,13 +8,16 @@
  * @LastEditTime: 2024-04-17 15:18:58
  */
 
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Layout from '../layout/index'
 import Home from '../views/home/index'
 import Form from '@/views/functions/form/index'
 import Table from '../views/functions/table/index'
 import Error404 from '../views/error/404'
 import Modal from '../views/functions/modal/index'
+import Zustand from '../views/functions/zustand/index'
+import Login from "@/views/login";
+
 // 嵌套餐单
 import Menu1 from '../views/menu/menu1'
 import Menu21 from '../views/menu/menu2/menu2-1'
@@ -61,6 +64,14 @@ export const routes = [
 				element: <Modal></Modal>,
 				icon: <UserOutlined />
 			},
+			{
+				label: 'zustand',
+				path: '/functions/zustand',
+				key: '/functions/zustand',
+				element: <Zustand></Zustand>,
+				icon: <UserOutlined />
+			},
+
 		]
 	},
 	{
@@ -114,10 +125,17 @@ export const routes = [
 	}
 ]
 
-export const router = createBrowserRouter([
-    {
+export const router = [
+	{
 		path: '/',
 		element: <Navigate to="/home"></Navigate>
+	},
+	{
+		path: '/login',
+		element: <Login></Login>,
+		meta: {
+			noVerificationRequired: true,
+		}
 	},
 	{
 		element: <Layout />,
@@ -131,4 +149,12 @@ export const router = createBrowserRouter([
 		path: '*',
 		element: <Navigate to="/404" replace />
     }
-])
+]
+
+const Router = () => {
+	const routes = useRoutes(router);
+	return routes;
+};
+
+export default Router;
+
