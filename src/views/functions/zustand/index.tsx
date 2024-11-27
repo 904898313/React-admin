@@ -1,15 +1,17 @@
-import { useCountStore } from "@/store";
-import { useShallow } from "zustand/react/shallow";
+// components
+import A from "./components/A.tsx"
+import B from "./components/B.tsx"
+import C from "./components/C.tsx"
 
 const Index = () => {
-    console.log(1, "1");
-    const store = useCountStore(useShallow((state) => state));
+    console.log("父组件-渲染");
     return (
         <>
-            a:{store.user.a}--
-            b:{store.user.b}
-            <div onClick={() => store.increment()}>+</div>
-            <div onClick={() => store.decrement()}>-</div>
+            <div className={"flex"}>
+                <A />
+                <B />
+                <C />
+            </div>
         </>
     );
 };

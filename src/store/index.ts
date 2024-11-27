@@ -3,29 +3,31 @@ import { immer } from 'zustand/middleware/immer'
 
 type State = {
     user: {
-        a: number,
-        b: number
+        userName: string,
+        age: number
     }
 }
 
 type Actions = {
-    increment: (qty?: number) => void
-    decrement: (qty?: number) => void
+    incrementAge: (qty?: number) => void
+    decrementAge: (qty?: number) => void
+    changeUserName: (qty: string) => void
 }
 
 export const useCountStore = create<State & Actions>()(
     immer((setState) => ({
         user: {
-            a: 0,
-            b: 0,
+            userName: "yangchenguang",
+            age: 28,
         },
-        increment: (qty = 1) =>
+        incrementAge: (qty = 1) =>
             setState((state) => {
-                state.user.a += qty
+                state.user.age += qty
             }),
-        decrement: (qty = 1) =>
+        decrementAge: (qty = 1) =>
             setState((state) => {
-                state.user.a -= qty
+                state.user.age -= qty
             }),
+        changeUserName: (userName) => setState((state) => { state.user.userName = userName })
     })),
 )

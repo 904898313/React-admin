@@ -8,8 +8,6 @@ const Index = () => {
     // form
     const [form] = Form.useForm();
     const onFinish = (values) => {
-        console.log(values, "values");
-        // form.resetFields();
         setToken('login after token')
         navigate('/home')
     }
