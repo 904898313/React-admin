@@ -152,8 +152,7 @@ export const router = [
 ]
 
 const Router = () => {
-	const routes = useRoutes(router);
-	return routes;
+	return useRoutes(router);
 };
 
 export default Router;
