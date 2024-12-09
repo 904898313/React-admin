@@ -9,14 +9,16 @@
  */
 
 import { Navigate } from "react-router-dom";
-import Layout from '../layout/index'
-import Home from '../views/home/index'
-import Form from '@/views/functions/form/index'
-import Table from '../views/functions/table/index'
-import Error404 from '../views/error/404'
-import Modal from '../views/functions/modal/index'
-import Zustand from '../views/functions/zustand/index'
+import Layout from '@/layout/index'
+import Home from '@/views/home/index'
+import Form from '@/views/antd/form/index'
+import Table from '@/views/antd/table/index'
+import Error404 from '@/views/error/404'
+import Modal from '@/views/antd/modal/index'
+import Zustand from '@/views/function/zustand/index'
 import Login from "@/views/login";
+import UserRule from "@/views/function/userRule";
+import TimerOut from "@/views/function/timerOut";
 
 // 嵌套餐单
 import Menu1 from '../views/menu/menu1'
@@ -28,7 +30,6 @@ import {
   PieChartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import UserRule from "@/views/functions/userRule";
 
 export const routes = [
 	{
@@ -39,43 +40,57 @@ export const routes = [
 		icon: <PieChartOutlined />
 	},
 	{
-		label: '功能',
-		key: '/functions',
+		label: 'Antd',
+		key: '/antd',
 		icon: <UserOutlined />,
 		children: [
 			{
 				label: 'table',
-				path: '/functions/table',
-				key: '/functions/table',
+				path: '/antd/table',
+				key: '/antd/table',
 				element: <Table></Table>,
 				icon: <UserOutlined />
 			},
 			{
 
 				label: 'form',
-				path: '/functions/form',
-				key: '/functions/form',
+				path: '/antd/form',
+				key: '/antd/form',
 				element: <Form></Form>,
 				icon: <UserOutlined />
 			},
 			{
 				label: 'modal',
-				path: '/functions/modal',
-				key: '/functions/modal',
+				path: '/antd/modal',
+				key: '/antd/modal',
 				element: <Modal></Modal>,
+				icon: <UserOutlined />
+			},
+		]
+	},
+	{
+		label: '功能',
+		key: '/function',
+		icon: <UserOutlined />,
+		children: [
+			{
+				label: 'timerOut',
+				path: '/function/timerOut',
+				key: '/function/timerOut',
+				element: <TimerOut></TimerOut>,
 				icon: <UserOutlined />
 			},
 			{
 				label: 'zustand',
-				path: '/functions/zustand',
-				key: '/functions/zustand',
+				path: '/function/zustand',
+				key: '/function/zustand',
 				element: <Zustand></Zustand>,
 				icon: <UserOutlined />
 			},
 			{
 				label: '用户分组',
-				path: '/functions/userRule',
-				key: '/functions/userRule',
+				path: '/function/userRule',
+				key: '/function/userRule',
 				element: <UserRule></UserRule>,
 				icon: <UserOutlined />
 			},
