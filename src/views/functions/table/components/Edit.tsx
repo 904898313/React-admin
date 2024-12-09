@@ -9,7 +9,7 @@
  */
 import { Modal } from 'antd'
 
-export default forwardRef(function EditForm(props, ref) {
+export default forwardRef(function EditForm(_, ref) {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	// confim

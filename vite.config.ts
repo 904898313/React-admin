@@ -1,13 +1,3 @@
-
-
-/*
- * @Author: yangchenguang
- * @Description: 
- * @Date: 2024-01-04 19:58:20
- * @LastEditors: yangchenguang
- * @LastEditTime: 2024-01-24 16:07:45
- */
-
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'

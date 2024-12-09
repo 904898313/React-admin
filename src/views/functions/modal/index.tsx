@@ -5,7 +5,7 @@ import {tableItem} from "./types.ts";
 import {PlusOutlined} from "@ant-design/icons";
 
 const Index = () => {
-    const ref = useRef();
+    const ref = useRef<{show: (record?:tableItem) => Promise<tableItem>}>();
     const [tableData, setTableData] = useState<tableItem[]>([
         {
             id: 1,
@@ -58,7 +58,7 @@ const Index = () => {
     ]
     // 显示弹窗
     const handleModalShow = async (record?:tableItem) => {
-        const userInfo = await ref.current.show(record)
+        const userInfo = await ref.current?.show(record)
         if(userInfo) {
             if(userInfo.id) {
                 // 编辑

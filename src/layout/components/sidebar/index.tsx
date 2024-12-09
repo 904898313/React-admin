@@ -1,13 +1,3 @@
-
-
-/*
- * @Author: yangchenguang
- * @Description: 侧边栏
- * @Date: 2024-01-05 09:16:48
- * @LastEditors: yangchenguang
- * @LastEditTime: 2024-10-23 17:28:17
- */
-
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';

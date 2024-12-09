@@ -28,6 +28,7 @@ import {
   PieChartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import UserRule from "@/views/functions/userRule";
 
 export const routes = [
 	{
@@ -69,6 +70,13 @@ export const routes = [
 				path: '/functions/zustand',
 				key: '/functions/zustand',
 				element: <Zustand></Zustand>,
+				icon: <UserOutlined />
+			},
+			{
+				label: '用户分组',
+				path: '/functions/userRule',
+				key: '/functions/userRule',
+				element: <UserRule></UserRule>,
 				icon: <UserOutlined />
 			},
 

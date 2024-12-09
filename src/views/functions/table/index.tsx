@@ -2,8 +2,6 @@ import { Card, Form, DatePicker, Select, Button, Space, Table, Popconfirm, messa
 import { SearchOutlined, SyncOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 // components
 import EditForm from "./components/Edit";
-// api
-import { getCountry } from '@/api/module/world.tsx'
 
 export default function TableDemo() {
 	useEffect(() => {
@@ -36,7 +34,7 @@ export default function TableDemo() {
 		age: number
 		address: string
 	}
-	const [dataSource, setDataSource] = useState<dataType[]>()
+	const [dataSource, ] = useState<dataType[]>()
 	const columns = [
 		{
 			title: 'Code',

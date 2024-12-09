@@ -28,3 +28,12 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## 代办
+- [ ] 代码块植入
+- [ ] zustand源码写入代码块展示
+- [ ] 用户分组
+- [ ] 聚合活动
+- [ ] 登录注册
+- [ ] go编写api支持服务
+- [ ] 购买服务器发布
