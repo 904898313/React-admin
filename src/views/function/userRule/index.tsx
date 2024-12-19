@@ -1,154 +1,95 @@
 import React from 'react';
-import { CloseOutlined } from '@ant-design/icons';
-import { Button, Card, Form, Input, Space, Typography, Select } from 'antd';
+import { Splitter, Tree, Space, Input, Button, Popconfirm } from 'antd';
+import { QuestionCircleOutlined  } from '@ant-design/icons';
+import type { TreeDataNode, TreeProps } from 'antd';
 
-const andOr = [
-    {label: "且", value: 1},
-    {label: "或", value: 2},
-]
-const keys = [
-    {label: "性别", value: 1, conditionType: 1, valueType: 1},
-    {label: "是否为会员", value: 2, conditionType: 1, valueType: 2},
-    {label: "用户注册天数", value: 3, conditionType: 1, valueType: 0},
-    {label: "连续在线天数", value: 4, conditionType: 1, valueType: 0},
-    {label: "已消费金额", value: 5, conditionType: 1, valueType: 0},
-]
-const condition = {
-    1: [{label: "等于",value: 10},{label: "不等于",value: 0},],
-    2: [
-        {label: "<",value: 1},
-        {label: "<=",value: 2},
-        {label: "=",value: 10},
-        {label: ">=",value: 3},
-        {label: ">",value: 4},
-    ]
-}
-// const values = {
-//     1: [{label: "男",value: 1},{label: "女",value: 2},],
-//     2: [{label: "会员",value: 1},{label: "非会员",value: 2},],
-// }
+const treeData: TreeDataNode[] = [
+    {
+        title: '新用户(注册15天内)',
+        key: '1',
+        disableCheckbox: true,
+    },
+    {
+        title: '老用户(注册时间大于365天)',
+        key: '2',
+    },
+    {
+        title: '是会员用户',
+        key: '3',
+        children: [
+            {
+                title: '会员时长<3天(提示续费)',
+                key: '3-1',
+            },
+        ],
+    },
+    {
+        title: '非会员用户',
+        key: '8',
+    },
+    {
+        title: '性别为男的用户',
+        key: '4',
+    },
+    {
+        title: '性别为女的用户',
+        key: '5',
+    },
+    {
+        title: '连续在线天数>30',
+        key: '6',
+    },
+    {
+        title: '已消费金额>1000',
+        key: '7',
+    },
+];
 
 const Index: React.FC = () => {
-    const [form] = Form.useForm();
+    // 过滤树节点
+    const [searchValue, setSearchValue] = React.useState('');
 
+    const handleTreeSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
+        console.log('selected', selectedKeys, info);
+    };
+    const handleTreeCheck: TreeProps['onCheck'] = (checkedKeys, info) => {
+        console.log('onCheck', checkedKeys, info);
+    };
+    const handleTreeDelete = () => {
+        console.log('删除');
+    }
     return (
-        <Form
-            labelCol={{ span: 2 }}
-            wrapperCol={{ span: 22 }}
-            form={form}
-            name="dynamic_form_complex"
-            style={{ maxWidth: "100%" }}
-            autoComplete="off"
-            initialValues={{ rules: [{}] }}
-        >
-            <Form.List name="rules">
-                {(fields, { add, remove }) => (
-                    <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
-                        {fields.map((field) => (
-                            <Card
-                                size="small"
-                                title={`用户分组 ${field.name + 1}`}
-                                key={field.key}
-                                extra={
-                                    <CloseOutlined
-                                        style={{ color: 'red' }}
-                                        onClick={() => {
-                                            remove(field.name);
-                                        }}
-                                    />
-                                }
-                            >
-                                <Form.Item label="分组名称" name={[field.name, 'name']}>
-                                    <Input />
-                                </Form.Item>
-
-                                {/* Nest Form.List */}
-                                <Form.Item label="分组规则">
-                                    <Form.List name={[field.name, 'list']}>
-                                        {(subFields, subOpt) => (
-                                            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
-                                                {subFields.map((subField) => (
-                                                    <Space key={subField.key}>
-                                                        {/*条件1 且/或*/}
-                                                        <Form.Item noStyle name={[subField.name, 'andOr']}>
-                                                            <Select placeholder={"请选择生成条件"} style={{width:'100px'}}>
-                                                                {
-                                                                    andOr.map(i => (
-                                                                        <Select.Option key={i.value} value={i.value}>
-                                                                            {i.label}
-                                                                        </Select.Option>
-                                                                    ))
-                                                                }
-                                                            </Select>
-                                                        </Form.Item>
-                                                        {/*类型*/}
-                                                        <Form.Item noStyle name={[subField.name, 'key']}>
-                                                            <Select placeholder={"请选择类型"} style={{width:'200px'}}>
-                                                                {
-                                                                    keys.map(i => (
-                                                                        <Select.Option key={i.value} value={i.value}>
-                                                                            {i.label}
-                                                                        </Select.Option>
-                                                                    ))
-                                                                }
-                                                            </Select>
-                                                        </Form.Item>
-                                                        {/*条件*/}
-                                                        <Form.Item
-                                                            noStyle
-                                                            name={[subField.name, 'condition']}
-                                                            shouldUpdate={(prevValues, currentValues) => {
-                                                                console.log(prevValues, "prevValues");
-                                                                console.log(currentValues, "currentValues");
-                                                               return true
-                                                            }}
-                                                        >
-                                                            <Select placeholder={"请选择条件"} style={{width:'100px'}}>
-                                                                {
-                                                                    condition[2].map(i => (
-                                                                        <Select.Option key={i.value} value={i.value}>
-                                                                            {i.label}
-                                                                        </Select.Option>
-                                                                    ))
-                                                                }
-                                                            </Select>
-                                                        </Form.Item>
-                                                        <Form.Item noStyle name={[subField.name, 'value']}>
-                                                            <Input placeholder="second" />
-                                                        </Form.Item>
-                                                        <CloseOutlined
-                                                            style={{ color: 'red' }}
-                                                            onClick={() => {
-                                                                subOpt.remove(subField.name);
-                                                            }}
-                                                        />
-                                                    </Space>
-                                                ))}
-                                                <Button type="dashed" onClick={() => subOpt.add()} block>
-                                                    + 添加规则
-                                                </Button>
-                                            </div>
-                                        )}
-                                    </Form.List>
-                                </Form.Item>
-                            </Card>
-                        ))}
-
-                        <Button type="dashed" onClick={() => add()} block>
-                            + 添加用户分组
-                        </Button>
-                    </div>
-                )}
-            </Form.List>
-
-            <Form.Item noStyle shouldUpdate>
-                {() => (
-                    <Typography>
-                        <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
-                    </Typography>
-                )}
-            </Form.Item>
-        </Form>
+        <>
+            <Splitter>
+                <Splitter.Panel defaultSize="20%" min="13%" max="30%">
+                    <Space className={"mb-3"}>
+                        <Input style={{width: "100%"}} placeholder="过滤用户分组名称" onChange={e => setSearchValue(e.target.value)} />
+                        <Button type="primary">新增</Button>
+                        <Popconfirm
+                            title="确定删除选中的用户分组吗?"
+                            icon={<QuestionCircleOutlined  style={{ color: 'red' }} />}
+                            okText={"确定"}
+                            cancelText={"取消"}
+                            okButtonProps={{ type: 'primary', danger: true }}
+                            onConfirm={handleTreeDelete}
+                        >
+                            <Button type="primary" danger>删除</Button>
+                        </Popconfirm>
+                    </Space>
+                    <Tree
+                        checkable
+                        blockNode
+                        defaultExpandAll
+                        treeData={treeData}
+                        onSelect={handleTreeSelect}
+                        onCheck={handleTreeCheck}
+                    />
+                </Splitter.Panel>
+                <Splitter.Panel>
+                    Second
+                </Splitter.Panel>
+            </Splitter>
+        </>
     );
 };
 
