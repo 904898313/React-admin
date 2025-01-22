@@ -35,7 +35,7 @@ const Index = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         moveBox.current!.addEventListener("mousedown", handleMouseDown);
         return () => {
-            moveBox.current!.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("mousedown", handleMouseDown);
         };
     }, [handleMouseDown]);
 
