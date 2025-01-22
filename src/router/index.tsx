@@ -19,6 +19,8 @@ import Zustand from '@/views/function/zustand/index'
 import Login from "@/views/login";
 import UserRule from "@/views/function/userRule";
 import TimerOut from "@/views/function/timerOut";
+import TaspectRatio from "@/views/tailwindcss/aspectRatio";
+import Flex from "@/views/tailwindcss/flex";
 
 // 嵌套餐单
 import Menu1 from '../views/menu/menu1'
@@ -64,6 +66,27 @@ export const routes = [
 				path: '/antd/modal',
 				key: '/antd/modal',
 				element: <Modal></Modal>,
+				icon: <UserOutlined />
+			},
+		]
+	},
+	{
+		label: 'tailwindcss',
+		key: '/tailwindcss',
+		icon: <UserOutlined />,
+		children: [
+			{
+				label: '横纵比',
+				path: '/tailwindcss/taspectRatio',
+				key: '/tailwindcss/taspectRatio',
+				element: <TaspectRatio></TaspectRatio>,
+				icon: <UserOutlined />
+			},
+			{
+				label: 'flex',
+				path: '/tailwindcss/flex',
+				key: '/tailwindcss/flex',
+				element: <Flex></Flex>,
 				icon: <UserOutlined />
 			},
 		]

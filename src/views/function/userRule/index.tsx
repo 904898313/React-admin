@@ -1,5 +1,5 @@
 import React from 'react';
-import {Splitter, Tree, Space, Input, Button, Popconfirm, Card} from 'antd';
+import {Splitter, Tree, Space, Input, Button, Popconfirm} from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import type { TreeDataNode, TreeProps } from 'antd';
 import Detail from "./components/Detail.tsx";
@@ -74,7 +74,7 @@ const Index: React.FC = () => {
     }, [searchValue]);
 
     // 点击树节点
-    const handleTreeSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
+    const handleTreeSelect: TreeProps['onSelect'] = (selectedKeys) => {
         setSelectedKey(selectedKeys[0] as string)
     };
     // 勾选树节点
