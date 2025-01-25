@@ -21,6 +21,7 @@ import UserRule from "@/views/function/userRule";
 import TimerOut from "@/views/function/timerOut";
 import TaspectRatio from "@/views/tailwindcss/aspectRatio";
 import Flex from "@/views/tailwindcss/flex";
+import React from "@/views/function/react";
 
 // 嵌套餐单
 import Menu1 from '../views/menu/menu1'
@@ -117,7 +118,13 @@ export const routes = [
 				element: <UserRule></UserRule>,
 				icon: <UserOutlined />
 			},
-
+			{
+				label: 'React',
+				path: '/function/React',
+				key: '/function/React',
+				element: <React></React>,
+				icon: <UserOutlined />
+			},
 		]
 	},
 	{
